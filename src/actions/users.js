@@ -19,7 +19,7 @@ export function fetchUser(email, password){
 					password: password
 					}
 		body = JSON.stringify(body)
-		fetch('http://localhost:3000/api/v1/auth', {
+		return fetch('http://localhost:3000/api/v1/auth', {
 			method: 'post',
 			body: body,
 			headers:{
@@ -30,8 +30,9 @@ export function fetchUser(email, password){
 		})
 		.then(res => res.json())
 		.then(json => {
-			localStorage.setItem("jwttoken", json.auth_token)
 			dispatch(login(json.user))
+			console.log("usersAction", json.auth_token)
+			return json.auth_token
 		})
 
 	}

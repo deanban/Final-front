@@ -7,6 +7,7 @@ import * as QuestionActions from '../actions/questions'
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import QuestionList from './QuestionList'
+import { Grid, Image, Segment } from 'semantic-ui-react'
 
 class HomeContainer extends React.Component{
 
@@ -21,10 +22,12 @@ class HomeContainer extends React.Component{
 
 
 		return(
-			<div class="ui grid">
-				<QuestionList passed={this.props.questions}/>
+			<Grid.Column stretched width={12}>
+		          <Segment>
+					    <QuestionList passed={this.props.questions}/>
+		          </Segment>
+        	</Grid.Column>
 			
-			</div>
 			)
 	}
 }

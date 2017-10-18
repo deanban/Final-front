@@ -30,9 +30,15 @@ class Login extends React.Component {
 
 
   handleSubmit = (event) => {
+    // console.log("current user", this.props.currentUser)
     event.preventDefault()
-    console.log(this.state)
     this.props.fetchUser(this.state.email.toLowerCase(), this.state.password)
+      .then((token) => {
+        localStorage.setItem("jwttoken", token)
+        console.log("loginprops", this.props)
+        this.props.router.history.push('/home')
+      })
+
 
   }
   render(){
@@ -85,7 +91,6 @@ class Login extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("userlogin", state.user)
   return {
     user: state.user
   }

@@ -8,9 +8,8 @@ import HomeContainer from './components/HomeContainer'
 import Home from './components/Home'
 import { withRouter } from 'react-router-dom'
 import Auth from './HOC/Auth'
-
-
-
+import { NavLink } from 'react-router-dom'
+import { Grid, Image, Segment, Menu } from 'semantic-ui-react'
 
 
 class App extends Component {
@@ -26,7 +25,7 @@ class App extends Component {
       <div className="App">
 
          
-          <Route exact path="/" component={Login}/>
+          <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/>
           <Route exact path="/home" component={AuthHomeContainer}/>
           {/*<Route path="/users" component={UsersContainer} />*/}
 
