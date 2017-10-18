@@ -5,11 +5,12 @@ import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import HomeContainer from './components/HomeContainer'
-import Home from './components/Home'
+import Nav from './components/Nav'
 import { withRouter } from 'react-router-dom'
 import Auth from './HOC/Auth'
 import { NavLink } from 'react-router-dom'
 import { Grid, Image, Segment, Menu } from 'semantic-ui-react'
+import PostQuestion from './components/PostQuestion'
 
 
 class App extends Component {
@@ -22,14 +23,17 @@ class App extends Component {
 	console.log("in app", this.props)
     
     return (
-      <div className="App">
-
-         
+  
+      <Grid>
+        <Nav/>
+        <Grid.Column stretched width={14}>
+          <Segment>
           <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/>
           <Route exact path="/home" component={AuthHomeContainer}/>
-          {/*<Route path="/users" component={UsersContainer} />*/}
-
-        </div>
+          <Route exact path='/post' component={PostQuestion} />     
+          </Segment>
+        </Grid.Column>
+      </Grid>
     )
   }
 }

@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Button, Modal, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react'
 
-
 class AnswerForm extends React.Component{
 
 	state = {
@@ -15,7 +14,7 @@ class AnswerForm extends React.Component{
 		console.log(this.props)
 		event.preventDefault()
 		console.log("clicked")
-		let body = {title: event.target.parentElement.childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].value, 
+		let body = {title: event.target.parentElement.firstChild.childNodes[0].childNodes[1].value, 
 						user_id: this.state.userid,
 						question_id: this.state.questionid}
 		body = JSON.stringify(body)
@@ -53,9 +52,10 @@ class AnswerForm extends React.Component{
               </Modal.Header>
               <Modal.Content>
                 <Form onSubmit={this.handleSubmit}>
-                  <Form.Field>
-                    <Form.Input onChange={this.handleChange} type='TextArea' name='answer' label="Your answer" value={this.state.body}/>
-                  </Form.Field>
+                  
+                    <Form.Field control={TextArea} onChange={this.handleChange} name='answer' label="Your answer" value={this.state.body}/>
+                    
+                  
                   <Form.Button content='Submit' />
                 </Form>
               </Modal.Content>
