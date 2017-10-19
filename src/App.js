@@ -11,6 +11,7 @@ import Auth from './HOC/Auth'
 import { NavLink } from 'react-router-dom'
 import { Grid, Image, Segment, Menu } from 'semantic-ui-react'
 import PostQuestion from './components/PostQuestion'
+import FetchNews from './components/FetchNews'
 
 
 class App extends Component {
@@ -30,8 +31,10 @@ class App extends Component {
           <Segment>
           <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/>
           <Route exact path="/home" component={AuthHomeContainer}/>
-          <Route exact path='/post' component={PostQuestion} />     
-          </Segment>
+          <Route exact path='/post' component={PostQuestion} /> 
+          <Route exact path='/news' component={FetchNews}  />
+           
+          </Segment> 
         </Grid.Column>
       </Grid>
     )

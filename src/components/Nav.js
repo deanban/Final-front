@@ -18,6 +18,7 @@ export default class Nav extends React.Component {
             <Menu.Item as={NavLink} to='/home' name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
             <Menu.Item as={NavLink} to='/post' name='post question' active={activeItem === 'post question'} onClick={this.handleItemClick} />
             <Menu.Item as={NavLink} to='/news' name='news' active={activeItem === 'news'} onClick={this.handleItemClick} />
+            <Menu.Item as={NavLink} to='/profile' name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick} />
           </Menu>
         </Grid.Column>
 

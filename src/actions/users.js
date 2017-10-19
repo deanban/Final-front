@@ -31,7 +31,7 @@ export function fetchUser(email, password){
 		.then(res => res.json())
 		.then(json => {
 			dispatch(login(json.user))
-			console.log("usersAction", json.auth_token)
+			console.log("usersAction", json.user)
 			return json.auth_token
 		})
 
