@@ -12,20 +12,19 @@ export default class Nav extends React.Component {
     const { activeItem } = this.state
 
     return (
-      
+
         <Grid.Column width={2}>
           <Menu fluid vertical tabular>
             <Menu.Item as={NavLink} to='/home' name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
             <Menu.Item as={NavLink} to='/post' name='post question' active={activeItem === 'post question'} onClick={this.handleItemClick} />
             <Menu.Item as={NavLink} to='/news' name='news' active={activeItem === 'news'} onClick={this.handleItemClick} />
+            <Menu.Item as={NavLink} to='/chat' name='chatroom' active={activeItem === 'chatroom'} onClick={this.handleItemClick} />
             <Menu.Item as={NavLink} to='/profile' name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick} />
           </Menu>
         </Grid.Column>
 
-       
- 
+
+
     )
   }
 }
-
-

@@ -12,11 +12,16 @@ import tagsReducer from './reducers/tagsReducer'
 import { Provider } from 'react-redux'
 // import { addBook, fetchBooks } from './actions/books'
 import thunk from 'redux-thunk'
+import { autoRehydrate, persistStore } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({users: usersReducer, questions: questionsReducer, categories: categoriesReducer, tags: tagsReducer})
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
-//const store = createStore(rootReducer)
+const store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(thunk),
+  autoRehydrate()
+))
+//const store = createStore(rootReducer)''
+persistStore(store)
 
 ReactDOM.render(<Provider store={store}><Router><App /></Router></Provider>, document.getElementById('root'));
 registerServiceWorker();

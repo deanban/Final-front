@@ -19,22 +19,25 @@ class App extends Component {
   render() {
 
   	const AuthHomeContainer = Auth(HomeContainer)
+    const AuthLogin = Auth(Login)
 
 
-	console.log("in app", this.props)
-    
+	console.log("App is re-rendering", this.state)
+
     return (
-  
+
       <Grid>
         <Nav/>
         <Grid.Column stretched width={14}>
           <Segment>
-          <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/>
+          {/* <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/> */}
+          <Route exact path="/" component={AuthLogin}/>
           <Route exact path="/home" component={AuthHomeContainer}/>
-          <Route exact path='/post' component={PostQuestion} /> 
+          <Route exact path='/post' render={(props) => <PostQuestion  />} />
           <Route exact path='/news' component={FetchNews}  />
-           
-          </Segment> 
+          <Route exact path='/chat' component={Chatroom}  />
+
+          </Segment>
         </Grid.Column>
       </Grid>
     )
@@ -42,8 +45,12 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log("App state", state)
 	return {
+    // categories: state.categories.categoriesList,
+    // tags: state.tags.tagsList,
 		currentUser: state.users
+
 	}
 }
 

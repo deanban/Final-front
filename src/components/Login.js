@@ -1,8 +1,11 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import * as UserActions from '../actions/users'
+import { fetchUser } from '../actions/users'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+// import { fetchQuestions } from '../actions/questions'
+import { fetchCategories } from '../actions/categories'
+import { fetchTags } from '../actions/tags'
 
 
 class Login extends React.Component {
@@ -28,23 +31,29 @@ class Login extends React.Component {
     })
   }
 
-
   handleSubmit = (event) => {
-    // console.log("current user", this.props.currentUser)
     event.preventDefault()
-    this.props.fetchUser(this.state.email.toLowerCase(), this.state.password)
-      .then((token) => {
-        localStorage.setItem("jwttoken", token)
-        console.log("loginprops", this.props)
-        this.props.router.history.push('/home')
-      })
-
-
+    this.props.fetchUser(this.state.email.toLowerCase(),this.state.password)
+    // this.props.router.history.push('/home')
+      // .then((token) => {
+      //   localStorage.setItem("jwttoken", token)
+      // })
+      //   console.log("loginprops", this.props)
+      //   this.props.router.history.push('/home')
+      // })
   }
+
+  componentDidMount(){
+		// this.props.fetchQuestions()
+		this.props.fetchCategories()
+		this.props.fetchTags()
+	}
+
   render(){
+
     return(
         <div className='login-form'>
-          
+
           <style>{`
             body > div,
             body > div > div,
@@ -58,7 +67,7 @@ class Login extends React.Component {
             verticalAlign='middle'
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-              
+
               <Form size='large' onSubmit={this.handleSubmit}>
                 <Segment stacked>
                   <Form.Input
@@ -91,13 +100,30 @@ class Login extends React.Component {
 }
 
 function mapStateToProps(state) {
+	//console.log("login", state)
   return {
-    user: state.users
+    // questions: state.questions.questionslist,
+    user: state.users,
+    isFetching: state.questions.isFetching
+
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(UserActions, dispatch)
+  return {
+    fetchUser: (email, password) =>{
+      dispatch(fetchUser(email, password))
+    },
+  	// fetchQuestions: () =>{
+  	// 	dispatch(fetchQuestions())
+  	// },
+  	fetchCategories: () =>{
+  		dispatch(fetchCategories())
+  	},
+  	fetchTags: () =>{
+  		dispatch(fetchTags())
+  	}
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Login)

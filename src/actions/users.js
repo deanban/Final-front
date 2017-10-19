@@ -12,7 +12,6 @@ function signup(user){
 }
 
 export function fetchUser(email, password){
-	// debugger
 	return function(dispatch){
 		// dispatch(fetchingQuestions())
 		let body = {email: email,
@@ -26,14 +25,17 @@ export function fetchUser(email, password){
 				"Accept": "application/json",
 				"Content-Type": "application/json"
 			}
-			
 		})
 		.then(res => res.json())
 		.then(json => {
+			// console.log("in usersAction", json)
+			localStorage.setItem("jwttoken", json.auth_token)
 			dispatch(login(json.user))
-			console.log("usersAction", json.user)
 			return json.auth_token
 		})
+		// .then((token) => {
+		//   localStorage.setItem("jwttoken", token)
+		// })
 
 	}
 }

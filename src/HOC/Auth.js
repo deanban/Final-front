@@ -4,10 +4,9 @@ import { Redirect } from 'react-router-dom'
 
 function Auth(RenderedComponent) {
   return class extends React.Component {
-
-
     render() {
-    	console.log("auth", ...this.props)
+    	console.log("Auth is re-rendering", this.props.location)
+
       if (!localStorage.getItem('jwttoken') && this.props.location.pathname !== "/") {
         return <Redirect to="/" />
       } else if (localStorage.getItem('jwttoken') && (this.props.location.pathname === "/")){
