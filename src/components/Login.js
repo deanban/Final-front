@@ -10,16 +10,13 @@ import { fetchTags } from '../actions/tags'
 
 class Login extends React.Component {
 
-  constructor(){
-    super()
-
-    this.state = {
+    state = {
       email: "",
       password: ""
     }
-  }
 
   handleEmailChange = (event) => {
+    // debugger
     this.setState({
       email: event.target.value
     })
@@ -33,7 +30,11 @@ class Login extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.fetchUser(this.state.email.toLowerCase(),this.state.password)
+    const email = this.state.email.toLowerCase()
+    const password = this.state.password
+    console.log(this.state)
+    // debugger
+    this.props.fetchUser(email, password)
     // this.props.router.history.push('/home')
       // .then((token) => {
       //   localStorage.setItem("jwttoken", token)
@@ -50,7 +51,7 @@ class Login extends React.Component {
 	}
 
   render(){
-
+    // debuggera
     return(
         <div className='login-form'>
 
@@ -90,7 +91,7 @@ class Login extends React.Component {
                 </Segment>
               </Form>
               <Message>
-                New to us? <a href='#'>Sign Up</a>
+                New to us? <a href='signup'>Sign Up</a>
               </Message>
             </Grid.Column>
           </Grid>

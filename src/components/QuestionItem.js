@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Accordion, Icon, Divider } from 'semantic-ui-react'
+import { Grid, Accordion, Icon, Divider } from 'semantic-ui-react'
 import AnswerForm from './AnswerForm'
 
 export default class AccordionExampleFluid extends Component {
@@ -19,27 +19,23 @@ export default class AccordionExampleFluid extends Component {
     console.log("item", this.props.id, this.props.item)
 
     return (
+      <Grid.Column>
       <Accordion styled>
         <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
           <Icon name='dropdown' />
           {this.props.item.title}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-            
           {this.props.item.answers.map(answer =>
-
           <p>
             {answer.title}
-          {/*<Divider section/>*/}
+          {/* <Divider section/> */}
           </p>
-
-
-
           )}
-
         <AnswerForm questionid={this.props.id} userid={this.props.item.user_id}/>
         </Accordion.Content>
       </Accordion>
+    </Grid.Column>
     )
   }
 }

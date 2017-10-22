@@ -1,52 +1,43 @@
 import React from 'react'
 import RenderNews from './RenderNews'
-import { Item } from 'semantic-ui-react'
+import {Item} from 'semantic-ui-react'
 
-export default class FetchNews extends React.Component{
+export default class FetchNews extends React.Component {
 
-	constructor(){
+  constructor() {
 
-		super()
+    super()
 
-		this.state = {
-			data: []
-		}
-	}
+    this.state = {
+      data: []
+    }
+  }
 
-	componentDidMount(){
+  componentDidMount() {
 
-		// const headers = {
-		// 	method: 'GET',
-		// 	mode: 'no-cors'
-		// }
+    // const headers = {
+    // 	method: 'GET',
+    // 	mode: 'no-cors'
+    // }
 
-		fetch('https://api.cognitive.microsoft.com/bing/v5.0/news/trendingtopics', {
-			method: 'get',
-			headers:{
-				'Ocp-Apim-Subscription-Key': 'aa72be0dbf9949cfaf8b646e65c56603',
-				"Content-Type": "application/json"
-			}
-		})
-		.then( resp => resp.json())
-		.then(respJson => {
-			this.setState({data: respJson.value})
-		})
-	}
+    fetch('https://api.cognitive.microsoft.com/bing/v5.0/news/trendingtopics', {
+      method: 'get',
+      headers: {
+        'Ocp-Apim-Subscription-Key': 'aa72be0dbf9949cfaf8b646e65c56603',
+        "Content-Type": "application/json"
+      }
+    }).then(resp => resp.json()).then(respJson => {
+      this.setState({data: respJson.value})
+    })
+  }
 
-	render(){
-		console.log("news", this.state.data)
-		return(
-			<Item.Group divided>
-				{this.state.data.map(item => 
-					<RenderNews
-						name={item.name}
-						image={item.image.url}
-						url={item.webSearchUrl}
-					/>
-
-				)}
-			</Item.Group>
-		)
-	}
+  render() {
+    console.log("news", this.state.data)
+    return (
+      <Item.Group divided>
+        {this.state.data.map(item => <RenderNews name={item.name} image={item.image.url} url={item.webSearchUrl}/>)}
+      </Item.Group>
+    )
+  }
 
 }

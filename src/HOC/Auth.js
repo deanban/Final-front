@@ -9,9 +9,17 @@ function Auth(RenderedComponent) {
 
       if (!localStorage.getItem('jwttoken') && this.props.location.pathname !== "/") {
         return <Redirect to="/" />
-      } else if (localStorage.getItem('jwttoken') && (this.props.location.pathname === "/")){
+      }else if (localStorage.getItem('jwttoken') && (this.props.location.pathname === "/")){
         return <Redirect to="/home" />
-      } else {
+      }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "/post")){
+        return <Redirect to="/" />
+      }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "/news")){
+        return <Redirect to="/" />
+      }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "/chat")){
+        return <Redirect to="/" />
+      }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "/profile")){
+        return <Redirect to="/" />
+      }else {
         return <RenderedComponent {...this.props}/>
       }
 

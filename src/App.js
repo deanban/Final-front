@@ -12,6 +12,8 @@ import { NavLink } from 'react-router-dom'
 import { Grid, Image, Segment, Menu } from 'semantic-ui-react'
 import PostQuestion from './components/PostQuestion'
 import FetchNews from './components/FetchNews'
+import Chatroom from './components/Chatroom'
+import Signup from './components/Signup'
 
 
 class App extends Component {
@@ -20,6 +22,7 @@ class App extends Component {
 
   	const AuthHomeContainer = Auth(HomeContainer)
     const AuthLogin = Auth(Login)
+    const AuthNav = Auth(Nav)
 
 
 	console.log("App is re-rendering", this.state)
@@ -27,15 +30,16 @@ class App extends Component {
     return (
 
       <Grid>
-        <Nav/>
+        <Nav router={this.props}/>
         <Grid.Column stretched width={14}>
           <Segment>
           {/* <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/> */}
           <Route exact path="/" component={AuthLogin}/>
           <Route exact path="/home" component={AuthHomeContainer}/>
-          <Route exact path='/post' render={(props) => <PostQuestion  />} />
+          <Route exact path='/post' component={PostQuestion} />
           <Route exact path='/news' component={FetchNews}  />
           <Route exact path='/chat' component={Chatroom}  />
+          <Route exact path='/signup' render={(routeProps) => <Signup router={routeProps} />}/>
 
           </Segment>
         </Grid.Column>
