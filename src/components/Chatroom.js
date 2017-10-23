@@ -1,100 +1,94 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import '../App.css';
+import Cable from 'actioncable';
 
-import Message from './Message.js';
+class Chatroom extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentChatMessage: '',
+      chatLogs: []
+    };
+  }
 
-class Chatroom extends React.Component {
-    constructor(props) {
-        super(props);
+  componentWillMount() {
+    this.createSocket();
+  }
 
-        this.state = {
-            chats: [{
-                username: "Kevin Hsu",
-                content: <p>Hello World!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Alice Chen",
-                content: <p>Love it! :heart:</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>Check out my Github at https://github.com/WigoHunter</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "KevHs",
-                content: <p>Lorem ipsum dolor sit amet, nibh ipsum. Cum class sem inceptos incidunt sed sed. Tempus wisi enim id, arcu sed lectus aliquam, nulla vitae est bibendum molestie elit risus.</p>,
-                img: "http://i.imgur.com/ARbQZix.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>So</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>Chilltime is going to be an app for you to view videos with friends</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>You can sign-up now to try out our private beta!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Alice Chen",
-                content: <p>Definitely! Sounds great!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }]
-        };
-
-        this.submitMessage = this.submitMessage.bind(this);
-    }
-
-    componentDidMount() {
-        this.scrollToBot();
-    }
-
-    componentDidUpdate() {
-        this.scrollToBot();
-    }
-
-    scrollToBot() {
-        ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
-    }
-
-    submitMessage(e) {
-        e.preventDefault();
-
-        this.setState({
-            chats: this.state.chats.concat([{
-                username: "Kevin Hsu",
-                content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }])
-        }, () => {
-            ReactDOM.findDOMNode(this.refs.msg).value = "";
+  createSocket() {
+    let cable = Cable.createConsumer('http://localhost:3000/api/v1/cable');
+    this.chats = cable.subscriptions.create({
+      channel: 'ChatChannel'
+    }, {
+      connected: () => {},
+      received: (data) => {
+        let chatLogs = this.state.chatLogs;
+        chatLogs.push(data);
+        this.setState({ chatLogs: chatLogs });
+      },
+      create: function(chatContent) {
+        this.perform('create', {
+          content: chatContent
         });
-    }
+      }
+    });
+  }
 
-    render() {
-        const username = "Kevin Hsu";
-        const { chats } = this.state;
+  renderChatLog() {
+    return this.state.chatLogs.map((el) => {
+      return (
+        <li key={`chat_${el.id}`}>
+          <span className='chat-message'>{ el.content }</span>
+          <span className='chat-created-at'>{ el.created_at }</span>
+        </li>
+      );
+    });
+  }
 
-        return (
-            <div className="chatroom">
-                <h3>Chilltime</h3>
-                <ul className="chats" ref="chats">
-                    {
-                        chats.map((chat) =>
-                            <Message chat={chat} user={username} />
-                        )
-                    }
-                </ul>
-                <form className="input" onSubmit={(e) => this.submitMessage(e)}>
-                    <input type="text" ref="msg" />
-                    <input type="submit" value="Submit" />
-                </form>
-                
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className='Chatroom'>
+        <div className='stage'>
+          <h1>Chat</h1>
+          <ul className='chat-logs'>
+            { this.renderChatLog() }
+          </ul>
+          <input
+            onKeyPress={ (e) => this.handleChatInputKeyPress(e) }
+            value={ this.state.currentChatMessage }
+            onChange={ (e) => this.updateCurrentChatMessage(e) }
+            type='text'
+            placeholder='Enter your message...'
+            className='chat-input' />
+          <button
+            onClick={ (e) => this.handleSendEvent(e) }
+            className='send'>
+            Send
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  updateCurrentChatMessage(event) {
+    this.setState({
+      currentChatMessage: event.target.value
+    });
+  }
+
+  handleChatInputKeyPress(event) {
+    if(event.key === 'Enter') {
+      this.handleSendEvent(event);
+    }//end if
+  }
+
+  handleSendEvent(event) {
+    event.preventDefault();
+    this.chats.create(this.state.currentChatMessage);
+    this.setState({
+      currentChatMessage: ''
+    });
+  }
 }
 
-export default Chatroom;
+export default Chatroom
