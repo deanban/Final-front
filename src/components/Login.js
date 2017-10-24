@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { fetchUser } from '../actions/users'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 // import { fetchQuestions } from '../actions/questions'
 import { fetchCategories } from '../actions/categories'
 import { fetchTags } from '../actions/tags'
@@ -51,7 +51,7 @@ class Login extends React.Component {
 	}
 
   render(){
-    // debuggera
+    // debugger
     return(
         <div className='login-form'>
 

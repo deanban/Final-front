@@ -15,11 +15,7 @@ class QuestionList extends React.Component{
     if(this.props.passed && this.props.passed.length > 0){
   		return(
   			<Grid.Column stretched width={8}>
-  				<Segment.Group>
-  					<Segment>
   						{this.props.passed.map(item => <QuestionItem id={item.id} item={item}/> )}
-  					</Segment>
-  				</Segment.Group>
   			</Grid.Column>
       )
     }else{

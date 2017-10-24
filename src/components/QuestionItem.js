@@ -19,7 +19,6 @@ export default class AccordionExampleFluid extends Component {
     console.log("item", this.props.id, this.props.item)
 
     return (
-      <Grid.Column>
       <Accordion styled>
         <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
           <Icon name='dropdown' />
@@ -35,7 +34,6 @@ export default class AccordionExampleFluid extends Component {
         <AnswerForm questionid={this.props.id} userid={this.props.item.user_id}/>
         </Accordion.Content>
       </Accordion>
-    </Grid.Column>
     )
   }
 }
