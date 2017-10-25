@@ -15,9 +15,28 @@ import FetchNews from './components/FetchNews'
 import Chatroom from './components/Chatroom'
 import Signup from './components/Signup'
 import Profile from './components/Profile'
+import { refetchUserInfo } from './actions/users'
+import { fetchCategories } from './actions/categories'
+import { fetchTags } from './actions/tags'
 
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+
+    const jwt = localStorage.getItem("jwttoken")
+    if(jwt){
+      props.refetchUserInfo(jwt)
+    }
+    props.fetchCategories()
+    props.fetchTags()
+  }
+
+
+  // componentWillMount(){
+  //   this.props.refetchUserInfo(localStorage.getItem("jwttoken"))
+  // }
 
   render() {
 
@@ -53,7 +72,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("App state", state)
+  console.log("App state", state.users)
 	return {
     // categories: state.categories.categoriesList,
     // tags: state.tags.tagsList,
@@ -62,7 +81,21 @@ function mapStateToProps(state) {
 	}
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+function mapDispatchToProps(dispatch) {
+  return {
+    refetchUserInfo: (token) => {
+      dispatch(refetchUserInfo(token))
+    },
+  	fetchCategories: () =>{
+  		dispatch(fetchCategories())
+  	},
+  	fetchTags: () =>{
+  		dispatch(fetchTags())
+  	}
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
 
  // <Route exact path="/home" component={AuthHomeContainer}/>

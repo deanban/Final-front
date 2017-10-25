@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Grid, Accordion, Icon, Divider, Button } from 'semantic-ui-react'
 import AnswerForm from './AnswerForm'
-import { increment, decrement, clear } from '../actions/votes'
+// import { increment, decrement, clear } from '../actions/votes'
 import { connect } from 'react-redux'
+import Vote_button from './Vote_button'
 
 
 class QuestionItem extends Component {
@@ -14,10 +15,6 @@ class QuestionItem extends Component {
     const newIndex = activeIndex === index ? -1 : index
 
     this.setState({ activeIndex: newIndex })
-  }
-
-  handleLikeButton = (event) => {
-    this.props.onIncrement()
   }
 
   render() {
@@ -36,17 +33,10 @@ class QuestionItem extends Component {
           {this.props.item.answers.map(answer =>
           <p>
             {answer.title}
-
-            <Button
-              onClick={this.handleLikeButton}
-              color='red'
-              content='Like'
-              icon='heart'
-              label={{ basic: true, color: 'red', pointing: 'left', content: this.props.newCount}}
-            />
+            <Vote_button userid={answer.user_id} answerid={answer.id} votecount={answer.total_votes}/>
           {/* <Divider section/> */}
           </p>
-          )}
+        )}
         <AnswerForm questionid={this.props.id} userid={this.props.item.user_id}/>
         </Accordion.Content>
       </Accordion>
@@ -54,28 +44,5 @@ class QuestionItem extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    newCount: state.count
-  }
 
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onIncrement: () => {
-      console.log("Incrementing")
-      dispatch(increment())
-    },
-    onDecrement: () => {
-      console.log("DECREMENTING")
-      dispatch(decrement())
-    },
-    onClear: () => {
-      console.log("CLearing")
-      dispatch(clear())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionItem)
+export default QuestionItem

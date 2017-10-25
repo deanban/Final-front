@@ -37,10 +37,10 @@ class PostQuestion extends Component {
     tagName: []
   }
 
-  componentDidMount(){
-  		this.props.fetchCategories()
-  		this.props.fetchTags()
-	}
+  // componentDidMount(){
+  // 		this.props.fetchCategories()
+  // 		this.props.fetchTags()
+	// }
 
   tagOptions = this.props.tags.map(option => {
     return {
@@ -82,7 +82,7 @@ class PostQuestion extends Component {
     console.log("tagName", this.state.tagName)
     console.log("tagName", this.props.user.id)
     event.preventDefault()
-    this.props.postQuestions(this.state.title, this.props.user.id, this.state.categoryid, this.state.tagName)
+    this.props.postQuestions(this.state.title, this.props.user.id, this.state.categoryid, this.state.tagName, this.props)
       // .then((token) => {
       //
       //   console.log("postQuestions", this.props)
@@ -127,8 +127,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    postQuestions: (title, userid, categoryid, tagname) =>{
-      dispatch(postQuestions(title, userid, categoryid, tagname))
+    postQuestions: (title, userid, categoryid, tagname, props) =>{
+      dispatch(postQuestions(title, userid, categoryid, tagname, props))
     },
   	// fetchQuestions: () =>{
   	// 	dispatch(fetchQuestions())

@@ -106,8 +106,8 @@ export function postQuestions(title, userid, categoryid, tagname, props){
 		.then(res => res.json())
 		.then(json => {
 			dispatch(addQuestion(json))
+			props.history.push('/home')
 			return json
-			this.props.history.push('/home')
 		})
 
 	}
