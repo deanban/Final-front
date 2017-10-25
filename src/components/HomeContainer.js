@@ -6,6 +6,7 @@ import { fetchQuestions } from '../actions/questions'
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import QuestionList from './QuestionList'
+// import Profile from './Profile'
 import { Grid, Image, Segment } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 

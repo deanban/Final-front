@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Form, Input } from 'semantic-ui-react'
 import { signUpUser } from '../actions/users'
+import { fetchCategories } from '../actions/categories'
+import { fetchTags } from '../actions/tags'
 import { connect } from 'react-redux'
 
 class Signup extends React.Component {
@@ -10,6 +12,11 @@ class Signup extends React.Component {
     lastName: '',
     email: '',
     password: ''
+  }
+
+  componentWillMount(){
+    this.props.fetchCategories()
+		this.props.fetchTags()
   }
 
   handleFirstName = (event) => {
@@ -44,7 +51,7 @@ class Signup extends React.Component {
     const last_name = this.state.lastName
     console.log(this.state)
     // debugger
-    this.props.signUpUser(email, password, first_name, last_name)
+    this.props.signUpUser(email, password, first_name, last_name, this.props)
     console.log("in signup/submit", this.props)
   }
 
@@ -77,9 +84,15 @@ class Signup extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    signUpUser: (email, password, first_name, last_name) =>{
-      dispatch(signUpUser(email, password, first_name, last_name))
-    }
+    signUpUser: (email, password, first_name, last_name, props) =>{
+      dispatch(signUpUser(email, password, first_name, last_name, props))
+    },
+    fetchCategories: () =>{
+  		dispatch(fetchCategories())
+  	},
+  	fetchTags: () =>{
+  		dispatch(fetchTags())
+  	}
   }
 }
 

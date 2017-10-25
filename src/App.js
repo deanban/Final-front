@@ -45,7 +45,7 @@ class App extends Component {
           <Route exact path='/news' component={AuthNews}  />
           <Route exact path='/chat' component={AuthChat}  />
           <Route exact path='/profile' component={AuthProfile}  />
-          <Route exact path='/signup' component={AuthSignup}/>
+          <Route exact path='/signup' component={Signup}/>
         </Grid.Column>
       </Grid>
     )

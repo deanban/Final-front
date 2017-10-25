@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Grid, Accordion, Icon, Divider } from 'semantic-ui-react'
+import { Grid, Accordion, Icon, Divider, Button } from 'semantic-ui-react'
 import AnswerForm from './AnswerForm'
+import { increment, decrement, clear } from '../actions/votes'
+import { connect } from 'react-redux'
 
-export default class AccordionExampleFluid extends Component {
+
+class QuestionItem extends Component {
   state = { activeIndex: 0 }
 
   handleClick = (e, titleProps) => {
@@ -13,10 +16,14 @@ export default class AccordionExampleFluid extends Component {
     this.setState({ activeIndex: newIndex })
   }
 
+  handleLikeButton = (event) => {
+    this.props.onIncrement()
+  }
+
   render() {
     const { activeIndex } = this.state
 
-    console.log("item", this.props.id, this.props.item)
+    console.log("item", this.props)
 
     return (
       <Accordion styled>
@@ -25,9 +32,18 @@ export default class AccordionExampleFluid extends Component {
           {this.props.item.title}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
+
           {this.props.item.answers.map(answer =>
           <p>
             {answer.title}
+
+            <Button
+              onClick={this.handleLikeButton}
+              color='red'
+              content='Like'
+              icon='heart'
+              label={{ basic: true, color: 'red', pointing: 'left', content: this.props.newCount}}
+            />
           {/* <Divider section/> */}
           </p>
           )}
@@ -37,3 +53,29 @@ export default class AccordionExampleFluid extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    newCount: state.count
+  }
+
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onIncrement: () => {
+      console.log("Incrementing")
+      dispatch(increment())
+    },
+    onDecrement: () => {
+      console.log("DECREMENTING")
+      dispatch(decrement())
+    },
+    onClear: () => {
+      console.log("CLearing")
+      dispatch(clear())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionItem)

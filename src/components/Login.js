@@ -44,7 +44,7 @@ class Login extends React.Component {
       // })
   }
 
-  componentDidMount(){
+  componentWillMount(){
 		// this.props.fetchQuestions()
 		this.props.fetchCategories()
 		this.props.fetchTags()

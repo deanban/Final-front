@@ -10,13 +10,14 @@ import questionsReducer from './reducers/questionsReducer'
 import categoriesReducer from './reducers/categoriesReducer'
 import tagsReducer from './reducers/tagsReducer'
 import profileReducer from './reducers/profileReducer'
+import votesReducer from './reducers/votesReducer'
 import { Provider } from 'react-redux'
 // import { addBook, fetchBooks } from './actions/books'
 import thunk from 'redux-thunk'
 import { autoRehydrate, persistStore } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const rootReducer = combineReducers({users: usersReducer, userProfile: profileReducer, questions: questionsReducer, categories: categoriesReducer, tags: tagsReducer})
+const rootReducer = combineReducers({users: usersReducer, userProfile: profileReducer, questions: questionsReducer, categories: categoriesReducer, tags: tagsReducer, votes: votesReducer})
 const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk)
   // autoRehydrate()

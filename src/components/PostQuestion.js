@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form, Input, Radio, Select, TextArea, Dropdown } from 'semantic-ui-react'
-import * as QuestionActions from '../actions/questions'
+import { postQuestions } from '../actions/questions'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
+import { fetchCategories } from '../actions/categories'
+import { fetchTags } from '../actions/tags'
 
 
 // const options = [
@@ -34,6 +36,11 @@ class PostQuestion extends Component {
     categoryid: [],
     tagName: []
   }
+
+  componentDidMount(){
+  		this.props.fetchCategories()
+  		this.props.fetchTags()
+	}
 
   tagOptions = this.props.tags.map(option => {
     return {
@@ -76,11 +83,11 @@ class PostQuestion extends Component {
     console.log("tagName", this.props.user.id)
     event.preventDefault()
     this.props.postQuestions(this.state.title, this.props.user.id, this.state.categoryid, this.state.tagName)
-      .then((token) => {
-
-        console.log("postQuestions", this.props)
-        // this.props.router.history.push('/home')
-      })
+      // .then((token) => {
+      //
+      //   console.log("postQuestions", this.props)
+      //   this.props.history.push('/home')
+      // })
 
 
   }
@@ -89,7 +96,7 @@ class PostQuestion extends Component {
     // const { tagName } = this.state
     console.log("post", this.props)
     console.log("tagoptions", this.tagOptions)
-    console.log("categoryOptions", this.categoryOptions)
+    console.log("categoryOptions", this.props.categories.categoriesList)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group required widths='equal'>
@@ -114,8 +121,26 @@ function mapStateToProps(state) {
   }
 }
 
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(QuestionActions, dispatch)
+// }
+
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(QuestionActions, dispatch)
+  return {
+    postQuestions: (title, userid, categoryid, tagname) =>{
+      dispatch(postQuestions(title, userid, categoryid, tagname))
+    },
+  	// fetchQuestions: () =>{
+  	// 	dispatch(fetchQuestions())
+  	// },
+  	fetchCategories: () =>{
+  		dispatch(fetchCategories())
+  	},
+  	fetchTags: () =>{
+  		dispatch(fetchTags())
+  	}
+  }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps) (PostQuestion)

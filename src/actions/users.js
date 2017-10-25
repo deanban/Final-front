@@ -63,7 +63,7 @@ export function refetchUserInfo(token){
 }
 }
 
-export function signUpUser(email, password, firstName, lastName){
+export function signUpUser(email, password, firstName, lastName, props){
   return function(dispatch){
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
@@ -84,7 +84,7 @@ export function signUpUser(email, password, firstName, lastName){
     dispatch(login(result.user))
     return result.auth_token
   })
-  // .then(resp => resp.json())
+  .then(resp => props.history.push('/home'))
   // .then(result =>{
   //   console.log("in useraction/signup", result.status)
   //   return result

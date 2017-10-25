@@ -85,7 +85,7 @@ export function fetchQuestions(){
 // }
 
 
-export function postQuestions(title, userid, categoryid, tagname){
+export function postQuestions(title, userid, categoryid, tagname, props){
 	return function(dispatch){
 		// dispatch(fetchingQuestions())
 		let body = {title: title,
@@ -101,12 +101,13 @@ export function postQuestions(title, userid, categoryid, tagname){
 				"Accept": "application/json",
 				"Content-Type": "application/json"
 			}
-			
+
 		})
 		.then(res => res.json())
 		.then(json => {
 			dispatch(addQuestion(json))
 			return json
+			this.props.history.push('/home')
 		})
 
 	}

@@ -15,9 +15,10 @@ export function fetchForProfilePage(userId){
 		.then(resp => resp.json())
 		.then((json) => {
 
-			dispatch(show(json))
+			dispatch(show({json}))
       // return json
-			// console.log("questionAction", questions)
+			console.log("profile/Action", json)
+      // debugger
 		})
 	}
 }
