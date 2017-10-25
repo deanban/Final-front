@@ -9,7 +9,7 @@ import Nav from './components/Nav'
 import { withRouter } from 'react-router-dom'
 import Auth from './HOC/Auth'
 import { NavLink } from 'react-router-dom'
-import { Grid, Image, Segment, Menu } from 'semantic-ui-react'
+import { Grid, Image, Segment, Menu} from 'semantic-ui-react'
 import PostQuestion from './components/PostQuestion'
 import FetchNews from './components/FetchNews'
 import Chatroom from './components/Chatroom'
@@ -18,6 +18,7 @@ import Profile from './components/Profile'
 import { refetchUserInfo } from './actions/users'
 import { fetchCategories } from './actions/categories'
 import { fetchTags } from './actions/tags'
+import MenuItem from './components/MenuItem'
 
 
 class App extends Component {
@@ -57,6 +58,7 @@ class App extends Component {
       <Grid>
         <Nav router={this.props}/>
         <Grid.Column stretched width={14}>
+          <MenuItem router={this.props}/>
           {/* <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/> */}
           <Route exact path="/" component={AuthLogin}/>
           <Route exact path="/home" component={AuthHomeContainer}/>

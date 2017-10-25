@@ -22,6 +22,8 @@ class QuestionItem extends Component {
 
     console.log("item", this.props)
 
+    // debugger
+
     return (
       <Accordion styled>
         <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>

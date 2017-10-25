@@ -27,7 +27,7 @@ class AnswerForm extends React.Component {
   // handleClose = () => this.setState({ modalOpen: false })
 
   handleSubmit = (event) => {
-    console.log(this.props)
+    console.log("AnswerForm", this.props)
     event.preventDefault()
     console.log("clicked")
     let body = {
@@ -44,7 +44,8 @@ class AnswerForm extends React.Component {
         "Content-Type": "application/json"
       }
     }).then(res => res.json()).then(() => this.setState({modalOpen: false}))
-    // .then(json => this.props.history.push('/home'))
+
+    // .then(json => {debugger})
   }
 
   handleChange = (event) => {
@@ -54,12 +55,11 @@ class AnswerForm extends React.Component {
 
   render()
   {
-
     return (
-      <Modal trigger={< Button onClick = {
+      <Modal trigger={< Button fluid onClick = {
         this.handleOpen
       }
-      basic color = 'black' > Post Answer < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='long'>
+      basic color = 'black' circular > Post Answer < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='fullscreen'>
         <Header icon='browser' content='Your Answer'/>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>

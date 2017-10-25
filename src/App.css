@@ -148,6 +148,10 @@ p {
   color: #FFF;
 }*/
 
+#login-icon {
+  margin-left: 47.5%;
+}
+
 .clearfix:after {
   visibility: hidden;
   display: block;

@@ -64,8 +64,10 @@ class Vote_button extends Component{
 
             <Button
               onClick={this.handleLikeButton}
+              circular
+              basic
               color='black'
-              content="Upvote"
+              icon='heart'
               icon='heart'
               label={{ basic: true, color: 'black', pointing: 'left', content: this.state.totalVotes}}
             />

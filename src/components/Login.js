@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Message, Segment, Modal } from 'semantic-ui-react'
 import { fetchUser } from '../actions/users'
 import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
@@ -12,8 +12,11 @@ class Login extends React.Component {
 
     state = {
       email: "",
-      password: ""
+      password: "",
+      modalOpen: true
     }
+
+  handleOpen = () => this.setState({modalOpen: false})
 
   handleEmailChange = (event) => {
     // debugger
@@ -53,52 +56,56 @@ class Login extends React.Component {
   render(){
     // debugger
     return(
-        <div className='login-form'>
+      <Modal trigger={< Button onClick = {
+        this.handleOpen
+      }
+      basic color = 'black' >  < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='fullscreen'>
+        {/* <Header icon='privacy' id="login-icon"/> */}
+        <Modal.Content>
 
-          <style>{`
-            body > div,
-            body > div > div,
-            body > div > div > div.login-form {
-              height: 100%;
-            }
-          `}</style>
-          <Grid
-            textAlign='center'
-            style={{ height: '100%' }}
-            verticalAlign='middle'
-          >
-            <Grid.Column style={{ maxWidth: 450 }}>
 
-              <Form size='large' onSubmit={this.handleSubmit}>
-                <Segment stacked>
-                  <Form.Input
-                    fluid
-                    icon='user'
-                    iconPosition='left'
-                    placeholder='E-mail address'
-                    onChange={this.handleEmailChange}
-                  />
-                  <Form.Input
-                    fluid
-                    icon='lock'
-                    iconPosition='left'
-                    placeholder='Password'
-                    type='password'
-                    onChange={this.handlePasswordChange}
-                  />
 
-                  <Button color='black' fluid size='large'>Login</Button>
-                </Segment>
-              </Form>
-              <Message>
-                New to us? <a href='signup'>Sign Up</a>
-              </Message>
-            </Grid.Column>
-          </Grid>
-        </div>
+            <Grid
+              textAlign='center'
+              style={{ height: '100%' }}
+              verticalAlign='middle'
+            >
+              <Grid.Column style={{ maxWidth: 450 }}>
+
+                <Form size='large' onSubmit={this.handleSubmit}>
+                  <Segment stacked>
+                    <Form.Input
+                      fluid
+                      icon='user'
+                      iconPosition='left'
+                      placeholder='E-mail address'
+                      onChange={this.handleEmailChange}
+                    />
+                    <Form.Input
+                      fluid
+                      icon='lock'
+                      iconPosition='left'
+                      placeholder='Password'
+                      type='password'
+                      onChange={this.handlePasswordChange}
+                    />
+
+                    <Button color='black' fluid circular icon='privacy'/>
+                  </Segment>
+                </Form>
+                <Message fluid circular>
+                  New to us? <a href='signup'>Sign Up</a>
+                </Message>
+              </Grid.Column>
+            </Grid>
+
+
+        </Modal.Content>
+      </Modal>
     )
   }
 }
+
 
 function mapStateToProps(state) {
 	//console.log("login", state)
