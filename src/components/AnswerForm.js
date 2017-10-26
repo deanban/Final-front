@@ -1,4 +1,7 @@
 import React from 'react'
+import { fetchQuestions } from '../actions/questions'
+import { connect } from 'react-redux'
+
 
 import {
   Button,
@@ -15,12 +18,32 @@ import {
 
 class AnswerForm extends React.Component {
 
+  componentDidMount(){
+    this.props.fetchQuestions()
+  }
+
   state = {
     title: "",
     userid: this.props.userid,
     questionid: this.props.questionid,
     modalOpen: false
   }
+
+  // handleSubmit=(event, props)=>{
+  //   debugger
+  //   this.props.submit(event, ()=>{
+  //     this.setState({
+  //       modalOpen:false
+  //     })
+  //   })
+  // }
+
+  // state = {
+  //   title: "",
+  //   userid: this.props.userid,
+  //   questionid: this.props.questionid,
+  //   modalOpen: false
+  // }
 
   handleOpen = () => this.setState({modalOpen: true})
 
@@ -43,9 +66,16 @@ class AnswerForm extends React.Component {
         "Accept": "application/json",
         "Content-Type": "application/json"
       }
-    }).then(res => res.json()).then(() => this.setState({modalOpen: false}))
+    }).then(res => res.json())
+    .then(json => {
+      this.setState({
+        modalOpen: false
+      })
+      console.log("answerform/redirect", this.props)
+      // this.props.history.push('/home')
+    })
+    .then(()=>this.props.history.push('/home'))
 
-    // .then(json => {debugger})
   }
 
   handleChange = (event) => {
@@ -55,6 +85,8 @@ class AnswerForm extends React.Component {
 
   render()
   {
+    console.log(this.props)
+    console.log("answerform re-rendering", this.props)
     return (
       <Modal trigger={< Button fluid onClick = {
         this.handleOpen
@@ -75,4 +107,12 @@ class AnswerForm extends React.Component {
 
 }
 
-export default AnswerForm
+function mapDispatchToProps(dispatch) {
+  return {
+  	fetchQuestions: () =>{
+  		dispatch(fetchQuestions())
+  	}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AnswerForm)

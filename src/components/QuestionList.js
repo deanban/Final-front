@@ -10,12 +10,12 @@ import {Accordion, Icon, Button, Container, Grid, Header, Segment, List, Loader}
 class QuestionList extends React.Component{
 
 	render(){
-		console.log("questionsList", this.props.passed)
+		console.log("questionsList", this.props)
 
     if(this.props.passed && this.props.passed.length > 0){
   		return(
   			<Grid.Column stretched width={8}>
-  						{this.props.passed.map(item => <QuestionItem id={item.id} item={item}/> )}
+  						{this.props.passed.map(item => <QuestionItem id={item.id} item={item} {...this.props}/> )}
   			</Grid.Column>
       )
     }else{

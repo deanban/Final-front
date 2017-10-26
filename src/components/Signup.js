@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Input } from 'semantic-ui-react'
+import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react'
 import { signUpUser } from '../actions/users'
 import { fetchCategories } from '../actions/categories'
 import { fetchTags } from '../actions/tags'
@@ -11,8 +11,11 @@ class Signup extends React.Component {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    modalOpen: true
   }
+
+  handleOpen = () => this.setState({modalOpen: false})
 
   componentWillMount(){
     this.props.fetchCategories()
@@ -57,27 +60,35 @@ class Signup extends React.Component {
 
   render(){
     return(
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group widths='equal'>
-          <Form.Input onChange={this.handleFirstName} label='First name' placeholder='First name' required/>
-          <Form.Input onChange={this.handleLastName} label='Last name' placeholder='Last name' required/>
-        </Form.Group>
-        <Form.Group required>
-          <Form.Input onChange={this.handleEmailName} label='Email' placeholder='Email Address' width={16} required/>
-        </Form.Group>
-        <Form.Group>
-          <Form.Input
-            required
-            width={8}
-            placeholder='Password'
-            label='Password'
-            type='password'
-            onChange={this.handlePasswordChange}
-          />
-        </Form.Group>
-        <Form.Checkbox label='I agree to the Terms and Conditions' />
-        <Button type='submit'>Submit</Button>
-      </Form>
+      <Modal trigger={< Button onClick = {
+        this.handleOpen
+      }
+      basic color = 'black' >  < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='fullscreen'>
+        {/* <Header icon='privacy' id="login-icon"/> */}
+        <Modal.Content>
+      <div>
+        <Message
+          attached
+          header='Welcome to My Demo v0.9'
+          content='Fill out the form below to sign-up for a new account'
+        />
+        <Form onSubmit={this.handleSubmit} className='attached fluid segment'>
+          <Form.Group widths='equal'>
+            <Form.Input onChange={this.handleFirstName} label='First Name' placeholder='First Name' type='text' required/>
+            <Form.Input onChange={this.handleLastName} label='Last Name' placeholder='Last Name' type='text' required/>
+          </Form.Group>
+          <Form.Input onChange={this.handleEmailName} label='Email' type='Email' required/>
+          <Form.Input onChange={this.handlePasswordChange} label='Password' type='password' required/>
+          <Form.Checkbox inline label='I agree to the terms and conditions' />
+          <Button color='blue'>Submit</Button>
+        </Form>
+        <Message attached='bottom' warning>
+          <Icon name='help' />
+          Already signed up?&nbsp;<a href='/'>Login here</a>&nbsp;instead.
+        </Message>
+      </div>
+    </Modal.Content>
+  </Modal>
     )
   }
 }
@@ -95,6 +106,5 @@ function mapDispatchToProps(dispatch) {
   	}
   }
 }
-
 
 export default connect(null, mapDispatchToProps)(Signup)

@@ -19,7 +19,7 @@ function Auth(RenderedComponent) {
         return <Redirect to="/" />
       }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "/profile")){
         return <Redirect to="/" />
-      // }else if (localStorage.getItem('jwttoken') && (this.props.location.pathname === "/signup")){
+      // }else if (!localStorage.getItem('jwttoken') && (this.props.location.pathname === "")){
       //   return <Redirect to="/home" />
       }else {
         return <RenderedComponent {...this.props}/>

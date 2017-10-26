@@ -28,7 +28,7 @@ class HomeContainer extends React.Component{
 		return(
 
 			<Grid.Column stretched width={16}>
-				<QuestionList passed={this.props.questions}/>
+				<QuestionList passed={this.props.questions} {...this.props}/>
       </Grid.Column>
 
 			)
