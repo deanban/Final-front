@@ -1,6 +1,6 @@
 import React from 'react'
 import RenderNews from './RenderNews'
-import {Item} from 'semantic-ui-react'
+import {Card} from 'semantic-ui-react'
 
 export default class FetchNews extends React.Component {
 
@@ -34,9 +34,9 @@ export default class FetchNews extends React.Component {
   render() {
     console.log("news", this.state.data)
     return (
-      <Item.Group divided>
+      <Card.Group itemsPerRow={5}>
         {this.state.data.map(item => <RenderNews name={item.name} image={item.image.url} url={item.webSearchUrl}/>)}
-      </Item.Group>
+      </Card.Group>
     )
   }
 

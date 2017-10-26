@@ -70,12 +70,11 @@ class Vote_button extends Component{
 
             <Button
               onClick={this.handleLikeButton}
-              circular
               basic
               color='black'
               icon='heart'
-              
-              label={{ basic: true, color: 'black', pointing: 'left', content: this.state.totalVotes}}
+              labelPosition='right'
+              label={{ basic: true, color: 'black', pointing: 'left', content: this.state.totalVotes ? this.state.totalVotes : 'Like'  }}
             />
 
       </Accordion.Content>
