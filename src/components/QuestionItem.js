@@ -25,7 +25,7 @@ class QuestionItem extends Component {
     // debugger
 
     return (
-      <Accordion styled>
+      <Accordion styled fluid>
         <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
           <Icon name='dropdown' />
           {this.props.item.title}

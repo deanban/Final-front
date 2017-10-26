@@ -152,6 +152,15 @@ p {
   margin-left: 47.5%;
 }
 
+#welcome-user {
+  margin-left: 360%;
+  color:rgba(0,0,0, .7);
+}
+
+#qtitle {
+  font-size: 15;
+}
+
 .clearfix:after {
   visibility: hidden;
   display: block;

@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import { Menu, Segment, Input, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { logOutUser } from '../actions/users'
+import HomeContainer from './HomeContainer'
 
 class MenuItem extends Component {
-  state = { activeItem: 'home' }
+  state = {
+    activeItem: 'home',
+    searchStr: ""
+   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -14,16 +18,27 @@ class MenuItem extends Component {
     this.props.router.history.push('/home')
   }
 
+  handleSearch = (event) => {
+    this.setState({
+      searchStr: event.target.value
+    })
+
+  }
+
   render() {
     const { activeItem } = this.state
-
+    console.log("menu", this.props)
     return (
       <div>
         <Menu pointing secondary>
           <Menu.Menu position='left'>
-            <Menu.Item>
+            <Menu.Item onChange={this.handleSearch}>
               <Input transparent icon={{ name: 'search', link: true }} placeholder='Search questions' />
+              {/* <HomeContainer searchTerm={this.state.searchStr} /> */}
             </Menu.Item>
+          <Menu.Item id="welcome-user">
+            <h4>Welcome, {this.props.user.first_name}</h4>
+          </Menu.Item>
           </Menu.Menu>
           <Button basic color='red' icon='log out' onClick={this.handleLogOut}/>
         </Menu>

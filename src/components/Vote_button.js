@@ -29,6 +29,12 @@ class Vote_button extends Component{
     this.postVote()
   }
 
+  // componentDidMount(){
+  //   this.setState({
+  //     totalVotes:this.props.total_votes
+  //   })
+  // }
+
   postVote(){
     let body = {
 					user_id: this.props.user.id,
@@ -68,7 +74,7 @@ class Vote_button extends Component{
               basic
               color='black'
               icon='heart'
-              icon='heart'
+              
               label={{ basic: true, color: 'black', pointing: 'left', content: this.state.totalVotes}}
             />
 

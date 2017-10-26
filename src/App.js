@@ -57,7 +57,7 @@ class App extends Component {
 
       <Grid>
         <Nav router={this.props}/>
-        <Grid.Column stretched width={14}>
+        <Grid.Column stretched width={12}>
           <MenuItem router={this.props}/>
           {/* <Route exact path="/" render={(routeProps) => <Login router={routeProps} />}/> */}
           <Route exact path="/" component={AuthLogin}/>
