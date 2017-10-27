@@ -91,7 +91,7 @@ class AnswerForm extends React.Component {
       <Modal trigger={< Button fluid onClick = {
         this.handleOpen
       }
-      basic color = 'black' circular > Post Answer < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='fullscreen'>
+      basic color = 'black'> Post Answer < /Button>} open={this.state.modalOpen} onClose={this.handleClose} basic size='fullscreen'>
         <Header icon='browser' content='Your Answer'/>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>

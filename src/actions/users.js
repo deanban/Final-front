@@ -34,9 +34,12 @@ export function fetchUser(email, password) {
     .then(resp => resp.json())
     .then(result =>{
       console.log("in usersAction", result)
-      localStorage.setItem("jwttoken", result.auth_token)
-      dispatch(login(result.user))
-      return result.auth_token
+      if(result.auth_token){
+
+        localStorage.setItem("jwttoken", result.auth_token)
+        dispatch(login(result.user))
+        return result.auth_token
+      }
     })
     //
     // .then((token) => {

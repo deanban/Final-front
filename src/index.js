@@ -19,11 +19,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({users: usersReducer, userProfile: profileReducer, questions: questionsReducer, categories: categoriesReducer, tags: tagsReducer, votes: votesReducer})
 const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(thunk),
-  autoRehydrate()
+  applyMiddleware(thunk)
+  // autoRehydrate()
 ))
 //const store = createStore(rootReducer)''
-persistStore(store)
+// persistStore(store)
 
 ReactDOM.render(<Provider store={store}><Router><App /></Router></Provider>, document.getElementById('root'));
 registerServiceWorker();
