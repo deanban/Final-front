@@ -4,6 +4,8 @@ function usersReducer(state =  { id:'', first_name: "", last_name: ""} , action)
       return  {...action.payload}
     case "CREATE_USER":
       return {...action.payload}
+    case "CURRENT_USER":
+  		return {...action.payload}
     default:
       return state
   }

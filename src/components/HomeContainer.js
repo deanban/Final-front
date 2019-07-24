@@ -1,54 +1,54 @@
 import React from 'react'
-// import BooksList from './BooksList'
-// import BookDetail from './BookDetail'
-// import BooksForm from './BooksForm'
-import { addQuestion, removeQuestion, fetchQuestions } from '../actions/questions'
-import * as QuestionActions from '../actions/questions'
+// import { addQuestion, removeQuestion, fetchQuestions } from '../actions/questions'
+import { fetchQuestions } from '../actions/questions'
+// import { fetchCategories } from '../actions/categories'
+// import { fetchTags } from '../actions/tags'
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import QuestionList from './QuestionList'
+// import Profile from './Profile'
+import { Grid, Image, Segment } from 'semantic-ui-react'
+import { bindActionCreators } from 'redux'
+
 
 class HomeContainer extends React.Component{
 
 
 	componentDidMount(){
 		this.props.fetchQuestions()
+		// this.props.fetchCategories()
+		// this.props.fetchTags()
 		console.log(this.props)
 	}
 
 	render(){
-		console.log("rendering home", this.props.questions)
+		console.log("rendering home", this.props)
 
 
 		return(
-			<div class="ui grid">
-				<QuestionList passed={this.props.questions}/>
-			
-			</div>
+
+			<Grid.Column stretched width={16}>
+				<QuestionList passed={this.props.questions} {...this.props}/>
+      </Grid.Column>
+
 			)
 	}
 }
 
 function mapStateToProps(state) {
-	console.log("homecontainer", state)
+	//console.log("login", state)
   return {
-    questions: state.questions.list,
-    isFetching: state.questions.isFetching
-
-  }
+    questions: state.questions.questionslist
+	}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchQuestions: () => {
-       
-      dispatch(fetchQuestions())
-    },
-    addQuestion: (title) => {
-     
-      dispatch(addQuestion(title))
-    }
+  	fetchQuestions: () =>{
+  		dispatch(fetchQuestions())
+  	}
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)
